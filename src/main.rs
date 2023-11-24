@@ -3,15 +3,14 @@ use std::fmt::Display;
 use nalgebra::Matrix5x3;
 
 fn main() {
-    let a = Letter::new('A');
-    println!("{a}");
+    ('A'..'Z').map(Letter::new).for_each(|l| println!("{l}"));
 }
 
 struct Letter(Matrix5x3<bool>);
 
 impl Display for Letter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.0)
+        write!(f, "{}", self.fill_with('X'))
     }
 }
 
@@ -55,5 +54,11 @@ impl Letter {
             'Z' => Letter(Matrix5x3::default()),
             _ => unimplemented!("This character isn't in the font set."),
         }
+    }
+    fn fill_with(&self, c: char) -> Matrix5x3<char> {
+        self.0.map(|b| match b {
+            true => c,
+            false => ' ',
+        })
     }
 }
