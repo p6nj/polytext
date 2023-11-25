@@ -3,4 +3,5 @@ mod letters;
 
 fn main() {
     print!("{}", &Letter::new('M') >> &Letter::new('N'));
+    print!("{}", &Letter::new('M') << &Letter::new('N'));
 }
