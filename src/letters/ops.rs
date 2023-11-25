@@ -5,7 +5,7 @@ impl<T> Add for Letter<T> {
     type Output = Self;
     #[allow(unused_variables)]
     fn add(self, rhs: Self) -> Self::Output {
-        todo!("This fn should merge typed letters into the final polymorphic letter.")
+        todo!("This fn should merge ground layers into the final polymorphic letter.")
     }
 }
 
@@ -16,6 +16,7 @@ impl Sub for &Letter<bool> {
     }
 }
 
+#[allow(clippy::suspicious_arithmetic_impl)]
 impl Shr for &Letter<bool> {
     type Output = Letter<bool>;
     fn shr(self, rhs: Self) -> Self::Output {
@@ -23,6 +24,7 @@ impl Shr for &Letter<bool> {
     }
 }
 
+#[allow(clippy::suspicious_arithmetic_impl)]
 impl Shl for &Letter<bool> {
     type Output = Letter<bool>;
     fn shl(self, rhs: Self) -> Self::Output {

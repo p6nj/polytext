@@ -7,13 +7,19 @@ pub(super) struct Letter<T>(Matrix5x3<T>);
 
 impl Display for Letter<bool> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.fill_with('X'))
+        write!(f, "{}", self.fill_with(true, 'X'))
     }
 }
 
 impl<T: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Letter<T> {
     #[allow(dead_code)]
-    fn map<F: FnMut(T) -> T>(&self, f: F) -> Self {
+    pub(super) fn map<
+        T2: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static,
+        F: FnMut(T) -> T2,
+    >(
+        &self,
+        f: F,
+    ) -> Letter<T2> {
         Letter(self.0.map(f))
     }
     fn zip_map<F: FnMut(T, T) -> T>(&self, rhs: &Self, f: F) -> Self {
@@ -21,12 +27,9 @@ impl<T: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Let
     }
 }
 
-impl Letter<bool> {
-    fn fill_with(&self, c: char) -> Matrix5x3<char> {
-        self.0.map(|b| match b {
-            true => c,
-            false => ' ',
-        })
+impl<T: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Letter<T> {
+    pub(super) fn fill_with(&self, target: T, c: char) -> Matrix5x3<char> {
+        self.0.map(|e| if e == target { c } else { ' ' })
     }
 }
 
