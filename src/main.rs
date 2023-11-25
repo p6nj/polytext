@@ -2,5 +2,5 @@ use letters::Letter;
 mod letters;
 
 fn main() {
-    ('A'..='Z').map(Letter::new).for_each(|l| print!("{l}"));
+    print!("{}", &Letter::new('M') >> &Letter::new('N'));
 }
