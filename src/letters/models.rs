@@ -1,7 +1,7 @@
 use super::Letter;
 use nalgebra::Matrix5x3;
 
-impl Letter {
+impl Letter<bool> {
     pub(crate) fn new(c: char) -> Self {
         match c {
             'A' => Letter(Matrix5x3::new(
