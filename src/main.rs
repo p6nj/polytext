@@ -9,5 +9,8 @@ fn main() {
         "{}",
         Letter::<Element>::from(&Letter::new('M') >> &Letter::new('N'))
     );
-    print!("{}", &Letter::new('M') << &Letter::new('N'));
+    print!(
+        "{}",
+        Letter::<Element>::from(&Letter::new('M') << &Letter::new('N'))
+    );
 }

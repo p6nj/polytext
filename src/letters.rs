@@ -31,6 +31,9 @@ impl<T: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Let
     pub(super) fn fill_with(&self, target: T, c: char) -> Matrix5x3<char> {
         self.0.map(|e| if e == target { c } else { ' ' })
     }
+    pub(super) fn fill(&self, pred: fn(T) -> char) -> Matrix5x3<char> {
+        self.0.map(pred)
+    }
 }
 
 impl<T: Default + std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Default

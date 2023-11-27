@@ -1,6 +1,5 @@
 use super::Element;
-use crate::letters::Letter;
-use std::{fmt::Display, ops::Add};
+use std::ops::Add;
 
 #[allow(dead_code)]
 pub(crate) enum Events {
@@ -9,21 +8,6 @@ pub(crate) enum Events {
     OnOff,
     Fire,
     Pow,
-}
-
-impl From<Letter<bool>> for Letter<Element> {
-    fn from(value: Letter<bool>) -> Self {
-        value.map(|e| match e {
-            true => Element::Ground,
-            false => Element::Void,
-        })
-    }
-}
-
-impl Display for Letter<Element> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.fill_with(Element::Ground, 'X'))
-    }
 }
 
 impl Add<Events> for Element {
