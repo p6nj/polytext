@@ -1,8 +1,8 @@
 use letters::Letter;
 
-use elements::Element;
-mod elements;
+use physics::Element;
 mod letters;
+mod physics;
 
 fn main() {
     print!(

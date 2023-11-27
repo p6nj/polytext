@@ -1,24 +1,9 @@
+use super::Element;
+use crate::letters::Letter;
 use std::{fmt::Display, ops::Add};
 
-use crate::letters::Letter;
-
 #[allow(dead_code)]
-#[derive(Debug, Default, Clone, PartialEq)]
-pub(super) enum Element {
-    Block,
-    Ice,
-    Hard,
-    OnOff(bool),
-    Coin,
-    #[default]
-    Ground,
-    FrozenCoin,
-    FrozenBlock,
-    Void,
-}
-
-#[allow(dead_code)]
-enum Events {
+pub(crate) enum Events {
     Blast,
     P,
     OnOff,
