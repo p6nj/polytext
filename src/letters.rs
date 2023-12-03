@@ -1,4 +1,5 @@
 use nalgebra::Matrix5x3;
+use std::fmt::Debug;
 use std::fmt::Display;
 mod models;
 mod ops;
@@ -11,7 +12,7 @@ impl Display for Letter<bool> {
     }
 }
 
-impl<T: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Letter<T> {
+impl<T: Clone + PartialEq + Debug + 'static> Letter<T> {
     #[allow(dead_code)]
     pub(super) fn map<
         T2: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static,
@@ -27,7 +28,7 @@ impl<T: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Let
     }
 }
 
-impl<T: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Letter<T> {
+impl<T: Clone + PartialEq + Debug + 'static> Letter<T> {
     pub(super) fn fill_with(&self, target: T, c: char) -> Matrix5x3<char> {
         self.0.map(|e| if e == target { c } else { ' ' })
     }
@@ -36,9 +37,7 @@ impl<T: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Let
     }
 }
 
-impl<T: Default + std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static> Default
-    for Letter<T>
-{
+impl<T: Default + Clone + PartialEq + Debug + 'static> Default for Letter<T> {
     fn default() -> Self {
         Self(Matrix5x3::default())
     }
