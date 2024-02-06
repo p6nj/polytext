@@ -13,7 +13,6 @@ impl Display for Letter<bool> {
 }
 
 impl<T: Clone + PartialEq + Debug + 'static> Letter<T> {
-    #[allow(dead_code)]
     pub(super) fn map<
         T2: std::clone::Clone + std::cmp::PartialEq + std::fmt::Debug + 'static,
         F: FnMut(T) -> T2,

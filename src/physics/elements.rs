@@ -1,13 +1,14 @@
 use crate::letters::Letter;
 use std::fmt::Display;
 
-#[allow(dead_code)]
+
 #[derive(Debug, Default, Clone, PartialEq)]
 pub(crate) enum Element {
     Block,
     Ice,
     Hard,
-    OnOff(bool),
+    On,
+    Off,
     Coin,
     #[default]
     Ground,
@@ -16,22 +17,38 @@ pub(crate) enum Element {
     Void,
 }
 
-impl From<Element> for char {
-    fn from(el: Element) -> Self {
+impl Element {
+    fn visible(&self) -> bool{
+        !matches!(self, Self::Off | Self::Void)
+    }
+}
+
+impl Display for Element {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", <&Element as Into<char>>::into(self))
+    }
+}
+
+impl From<&Element> for char {
+    fn from(el: &Element) -> Self {
         match el {
             Element::Block => 'B',
             Element::Ice => 'I',
             Element::Hard => 'H',
-            Element::OnOff(on) => match on {
-                true => 'O',
-                false => '_',
-            },
+            Element::On=>'O',
+            Element::Off=>'_',
             Element::Coin => 'C',
             Element::Ground => 'G',
             Element::FrozenCoin => '@',
             Element::FrozenBlock => '$',
             Element::Void => ' ',
         }
+    }
+}
+
+impl From<Element> for char {
+    fn from(value: Element) -> Self {
+        (&value).into()
     }
 }
 

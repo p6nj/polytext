@@ -46,7 +46,7 @@ where
 
 impl<T> BitAnd for &Letter<T>
 where
-    T: Clone + Debug + PartialEq + Not<Output = T> + BitAnd<T, Output = T> + 'static,
+    T: Clone + Debug + PartialEq + BitAnd<T, Output = T> + 'static,
 {
     type Output = Letter<T>;
     fn bitand(self, rhs: Self) -> Self::Output {

@@ -1,48 +1,52 @@
 use super::Element;
 use std::ops::Add;
 
-#[allow(dead_code)]
-pub(crate) enum Events {
+pub(crate) enum Event {
     Blast,
     P,
-    OnOff,
+    On,
+    Off,
     Fire,
     Pow,
 }
 
-impl Add<Events> for Element {
+impl Add<Event> for Element {
     type Output = Self;
-    fn add(self, rhs: Events) -> Self::Output {
+    fn add(self, rhs: Event) -> Self::Output {
         match self {
             Self::Block => match rhs {
-                Events::Blast => Self::Void,
-                Events::P => Self::Coin,
+                Event::Blast => Self::Void,
+                Event::P => Self::Coin,
                 _ => Self::Block,
             },
             Self::Ice | Self::Hard => match rhs {
-                Events::Blast => Self::Void,
+                Event::Blast => Self::Void,
                 _ => Self::Ice,
             },
-            Self::OnOff(on) => match rhs {
-                Events::OnOff => Self::OnOff(!on),
-                _ => Self::OnOff(on),
+            Self::On => match rhs {
+                Event::Off => Self::Off,
+                _=>Self::On,
             },
+            Self::Off=>match rhs {
+                Event::On=>Self::On,
+                _=>Self::Off,
+            }
             Self::Coin => match rhs {
-                Events::Blast => Self::Void,
-                Events::P => Self::Block,
-                Events::Pow => Self::Void,
+                Event::Blast => Self::Void,
+                Event::P => Self::Block,
+                Event::Pow => Self::Void,
                 _ => Self::Coin,
             },
             Self::FrozenCoin => match rhs {
-                Events::Fire => Self::Coin,
-                Events::Blast => Self::Void,
-                Events::P => Self::FrozenBlock,
+                Event::Fire => Self::Coin,
+                Event::Blast => Self::Void,
+                Event::P => Self::FrozenBlock,
                 _ => Self::FrozenCoin,
             },
             Self::FrozenBlock => match rhs {
-                Events::Fire => Self::Block,
-                Events::Blast => Self::Void,
-                Events::P => Self::FrozenCoin,
+                Event::Fire => Self::Block,
+                Event::Blast => Self::Void,
+                Event::P => Self::FrozenCoin,
                 _ => Self::FrozenBlock,
             },
             other => other,
