@@ -1,8 +1,8 @@
 use crate::letters::Letter;
 use std::fmt::Display;
+use strum::EnumIter;
 
-
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, EnumIter)]
 pub(crate) enum Element {
     Block,
     Ice,
@@ -18,7 +18,7 @@ pub(crate) enum Element {
 }
 
 impl Element {
-    fn visible(&self) -> bool{
+    fn visible(&self) -> bool {
         !matches!(self, Self::Off | Self::Void)
     }
 }
@@ -35,8 +35,8 @@ impl From<&Element> for char {
             Element::Block => 'B',
             Element::Ice => 'I',
             Element::Hard => 'H',
-            Element::On=>'O',
-            Element::Off=>'_',
+            Element::On => 'O',
+            Element::Off => '_',
             Element::Coin => 'C',
             Element::Ground => 'G',
             Element::FrozenCoin => '@',

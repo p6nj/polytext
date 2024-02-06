@@ -1,6 +1,8 @@
 use super::Element;
 use std::ops::Add;
+use strum::EnumIter;
 
+#[derive(EnumIter)]
 pub(crate) enum Event {
     Blast,
     P,
@@ -25,12 +27,12 @@ impl Add<Event> for Element {
             },
             Self::On => match rhs {
                 Event::Off => Self::Off,
-                _=>Self::On,
+                _ => Self::On,
             },
-            Self::Off=>match rhs {
-                Event::On=>Self::On,
-                _=>Self::Off,
-            }
+            Self::Off => match rhs {
+                Event::On => Self::On,
+                _ => Self::Off,
+            },
             Self::Coin => match rhs {
                 Event::Blast => Self::Void,
                 Event::P => Self::Block,
