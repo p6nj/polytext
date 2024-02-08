@@ -2,7 +2,7 @@ use super::Element;
 use std::ops::Add;
 use strum::EnumIter;
 
-#[derive(EnumIter)]
+#[derive(EnumIter, PartialEq, Copy, Clone, Debug)]
 pub(crate) enum Event {
     Blast,
     P,

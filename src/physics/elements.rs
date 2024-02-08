@@ -2,7 +2,7 @@ use crate::letters::Letter;
 use std::fmt::Display;
 use strum::EnumIter;
 
-#[derive(Debug, Default, Clone, PartialEq, EnumIter)]
+#[derive(Debug, Default, Clone, PartialEq, EnumIter, Copy)]
 pub(crate) enum Element {
     Block,
     Ice,
@@ -18,7 +18,7 @@ pub(crate) enum Element {
 }
 
 impl Element {
-    fn visible(&self) -> bool {
+    pub(crate) fn visible(&self) -> bool {
         !matches!(self, Self::Off | Self::Void)
     }
 }
