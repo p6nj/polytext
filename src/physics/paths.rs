@@ -1,43 +1,23 @@
-use std::iter::once;
-
 use super::{Element, Event};
-use derive_new::new;
-use strum::IntoEnumIterator;
 
-pub(crate) type Path = Vec<(Event, Element)>;
-
-#[derive(new, Debug)]
-pub(crate) struct LoopablePath {
-    path: Path,
-    loopson: usize,
+struct Pixel {
+    from: Element,
+    path: Vec<Event>,
 }
 
-pub(crate) fn paths(e: Element) -> Vec<LoopablePath> {
-    fn extend(path: Path, next: Element) -> Vec<LoopablePath> {
-        if let Some(i) = path
-            .iter()
-            .map(|(_, e)| e)
-            .filter(|e| e == &&next)
-            .enumerate()
-            .map(|(i, _)| i)
-            .next()
-        {
-            vec![LoopablePath::new(path, i)]
-        } else {
-            Event::iter()
-                .flat_map(|event| {
-                    let next = next + event;
-                    extend(
-                        {
-                            let mut path = path.clone();
-                            path.extend(once((event, next)));
-                            path
-                        },
-                        next,
-                    )
-                })
-                .collect()
-        }
+struct PixelPath {
+    /// The asked states this path goes though
+    states: Vec<bool>,
+    from: Element,
+    path: Vec<Vec<Event>>,
+    /// Other paths this one is compatible with.
+    /// This field will be empty on the first Pixel.
+    // TODO: replace with pointers??
+    works_with: Vec<PixelPath>,
+}
+
+impl PixelPath {
+    fn filter_compatible<'a>(&self, paths: &'a Vec<PixelPath>) -> Vec<&'a PixelPath> {
+        paths.iter().filter(|p| todo!()).collect()
     }
-    extend(Path::new(), e)
 }

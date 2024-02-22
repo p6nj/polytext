@@ -1,5 +1,5 @@
 use super::Element;
-use std::ops::Add;
+use std::ops::Mul;
 use strum::EnumIter;
 
 #[derive(EnumIter, PartialEq, Copy, Clone, Debug)]
@@ -12,9 +12,9 @@ pub(crate) enum Event {
     Pow,
 }
 
-impl Add<Event> for Element {
+impl Mul<Event> for Element {
     type Output = Self;
-    fn add(self, rhs: Event) -> Self::Output {
+    fn mul(self, rhs: Event) -> Self::Output {
         match self {
             Self::Block => match rhs {
                 Event::Blast => Self::Void,
